@@ -9,22 +9,6 @@ public class Range {
         this.to = to;
     }
 
-    public double getFrom() {
-        return from;
-    }
-
-    public void setFrom(double from) {
-        this.from = from;
-    }
-
-    public double getTo() {
-        return to;
-    }
-
-    public void setTo(double to) {
-        this.to = to;
-    }
-
     public double getLength() {
         return to - from;
     }

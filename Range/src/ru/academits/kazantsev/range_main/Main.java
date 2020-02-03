@@ -1,4 +1,6 @@
-package ru.academits.kazantsev.range;
+package ru.academits.kazantsev.range_main;
+
+import ru.academits.kazantsev.range.Range;
 
 public class Main {
     public static void main(String[] args) {
