@@ -1,39 +1,39 @@
 package ru.academits.kazantsev.range;
 
 public class Range {
-    private double from;
-    private double to;
+    private final double FROM;
+    private final double TO;
 
     public Range(double from, double to) {
-        this.from = from;
-        this.to = to;
+        this.FROM = from;
+        this.TO = to;
     }
 
     public double getLength() {
-        return to - from;
+        return Math.abs(TO - FROM);
     }
 
     public boolean isInside(double number) {
-        return number >= from && number <= to;
+        return number >= FROM && number <= TO;
     }
 
     @Override
     public String toString() {
-        return String.format("%.1f, %.1f", this.from, this.to);
+        return String.format("%.1f, %.1f", this.FROM, this.TO);
     }
 
     public Range getIntersectionRanges(Range range) {
-        if (this.from >= range.to || this.to <= range.from) {
+        if (this.FROM >= range.TO || this.TO <= range.FROM) {
             return null;
         } else {
-            if (this.from > range.from && this.to > range.to) {
-                return new Range(this.from, range.to);
-            } else if (range.from > this.from && this.to > range.to) {
-                return new Range(range.from, range.to);
-            } else if (range.from < this.from && this.to < range.to) {
-                return new Range(this.from, this.to);
+            if (this.FROM > range.FROM && this.TO > range.TO) {
+                return new Range(this.FROM, range.TO);
+            } else if (range.FROM > this.FROM && this.TO > range.TO) {
+                return new Range(range.FROM, range.TO);
+            } else if (range.FROM < this.FROM && this.TO < range.TO) {
+                return new Range(this.FROM, this.TO);
             } else {
-                return new Range(range.from, this.to);
+                return new Range(range.FROM, this.TO);
             }
         }
     }
@@ -41,17 +41,17 @@ public class Range {
     public Range[] getAdditionRanges(Range range) {
         Range[] additionRange = new Range[2];
 
-        if (this.from > range.to) {
-            additionRange[0] = new Range(range.from, range.to);
-            additionRange[1] = new Range(this.from, this.to);
+        if (this.FROM > range.TO) {
+            additionRange[0] = new Range(range.FROM, range.TO);
+            additionRange[1] = new Range(this.FROM, this.TO);
             return additionRange;
-        } else if (this.to < range.from) {
-            additionRange[0] = new Range(this.from, this.to);
-            additionRange[1] = new Range(range.from, range.to);
+        } else if (this.TO < range.FROM) {
+            additionRange[0] = new Range(this.FROM, this.TO);
+            additionRange[1] = new Range(range.FROM, range.TO);
             return additionRange;
         } else {
             additionRange = new Range[1];
-            additionRange[0] = new Range(Math.min(this.from, range.from), Math.max(this.to, range.to));
+            additionRange[0] = new Range(Math.min(this.FROM, range.FROM), Math.max(this.TO, range.TO));
             return additionRange;
         }
     }
@@ -59,20 +59,20 @@ public class Range {
     public Range[] getSubtractionRanges(Range range) {
         Range[] subtractionRange = new Range[1];
 
-        if (this.from >= range.to || this.to <= range.from) {
-            subtractionRange[0] = new Range(this.from, this.to);
+        if (this.FROM >= range.TO || this.TO <= range.FROM) {
+            subtractionRange[0] = new Range(this.FROM, this.TO);
             return subtractionRange;
         } else {
-            if (range.from < this.from && range.to <= this.to) {
-                subtractionRange[0] = new Range(range.from, this.from);
+            if (range.FROM < this.FROM && range.TO <= this.TO) {
+                subtractionRange[0] = new Range(range.FROM, this.FROM);
                 return subtractionRange;
-            } else if (this.from <= range.from && this.to < range.to) {
-                subtractionRange[0] = new Range(this.to, range.to);
+            } else if (this.FROM <= range.FROM && this.TO < range.TO) {
+                subtractionRange[0] = new Range(this.TO, range.TO);
                 return subtractionRange;
-            } else if (this.from < range.from && range.to < this.to) {
+            } else if (this.FROM < range.FROM && range.TO < this.TO) {
                 subtractionRange = new Range[2];
-                subtractionRange[0] = new Range(this.from, range.from);
-                subtractionRange[1] = new Range(range.to, this.to);
+                subtractionRange[0] = new Range(this.FROM, range.FROM);
+                subtractionRange[1] = new Range(range.TO, this.TO);
                 return subtractionRange;
             } else {
                 return new Range[0];
