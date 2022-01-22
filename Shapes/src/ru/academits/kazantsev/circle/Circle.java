@@ -3,46 +3,46 @@ package ru.academits.kazantsev.circle;
 import ru.academits.kazantsev.shapes.Shapes;
 
 public class Circle implements Shapes {
-    private final String NAME;
-    private final double RADIUS;
-    private final double DIAMETER;
+    private final String name;
+    private final double radius;
+    private final double diameter;
     private double area;
     private double perimeter;
 
     public Circle(String name, double radius) {
-        this.NAME = name;
-        this.RADIUS = radius;
-        DIAMETER = 2 * RADIUS;
+        this.name = name;
+        this.radius = radius;
+        diameter = 2 * radius;
         getArea();
         getPerimeter();
     }
 
     @Override
     public double getWidth() {
-        return DIAMETER;
+        return diameter;
     }
 
     @Override
     public double getHeight() {
-        return DIAMETER;
+        return diameter;
     }
 
     @Override
     public double getArea() {
-        area = Math.PI * Math.pow(RADIUS, 2);
+        area = Math.PI * Math.pow(radius, 2);
         return area;
     }
 
     @Override
     public double getPerimeter() {
-        perimeter = 2 * Math.PI * RADIUS;
+        perimeter = 2 * Math.PI * radius;
         return perimeter;
     }
 
     public String toString() {
-        return "Фигура - " + NAME + ", " +
-                "Ширина и высота - " + DIAMETER + ", " +
-                "Площадь - " + area + ", " +
-                "Периметр - " + perimeter;
+        return "Фигура - " + name + ", " +
+                "Ширина и высота - " + diameter + ", " +
+                "Площадь - " + String.format("%.1f", area) + ", " +
+                "Периметр - " + String.format("%.1f", perimeter);
     }
 }

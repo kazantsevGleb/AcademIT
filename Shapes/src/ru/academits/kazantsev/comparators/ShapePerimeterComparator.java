@@ -1,4 +1,4 @@
-package ru.academits.kazantsev.Comparators;
+package ru.academits.kazantsev.comparators;
 
 import ru.academits.kazantsev.shapes.Shapes;
 

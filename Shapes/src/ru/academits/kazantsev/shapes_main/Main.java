@@ -1,7 +1,7 @@
 package ru.academits.kazantsev.shapes_main;
 
-import ru.academits.kazantsev.Comparators.ShapeAreasComparator;
-import ru.academits.kazantsev.Comparators.ShapePerimeterComparator;
+import ru.academits.kazantsev.comparators.ShapeAreasComparator;
+import ru.academits.kazantsev.comparators.ShapePerimeterComparator;
 import ru.academits.kazantsev.circle.Circle;
 import ru.academits.kazantsev.rectangle.Rectangle;
 import ru.academits.kazantsev.shapes.Shapes;
@@ -15,12 +15,12 @@ public class Main {
         Rectangle rectangle1 = new Rectangle("Прямоугольник",51, 15);
         Square square1 = new Square("Квадрат",18);
         Triangle triangle1 = new Triangle("Треугольник",5, 0.2, 10.5, 7, -3, 8);
-        Circle circle2 = new Circle("Круг",99);
+        Circle circle2 = new Circle("Круг",990);
         Rectangle rectangle2 = new Rectangle("Прямоугольник",3, 150);
         Square square2 = new Square("Квадрат", 5);
-        Triangle triangle2 = new Triangle("Треугольник",4, 1.2, 12.5, 7.2, -5, 3);
+        Triangle triangle2 = new Triangle("Треугольник",40, 512.2, 125, 217.2, 500, 33);
         Square square3 = new Square("Квадрат", 15);
-        Rectangle rectangle3 = new Rectangle("Прямоугольник",3000, 30);
+        Rectangle rectangle3 = new Rectangle("Прямоугольник",300, 30);
 
         Shapes[] shapes = new Shapes[10];
 
