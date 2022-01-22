@@ -3,29 +3,43 @@ package ru.academits.kazantsev.square;
 import ru.academits.kazantsev.shapes.Shapes;
 
 public class Square implements Shapes {
-    private double side;
+    private final String NAME;
+    private final double SIDE_LENGTH;
+    private double area;
+    private double perimeter;
 
-    public Square (double side) {
-        this.side = side;
+    public Square (String name, double sideLength) {
+        this.NAME = name;
+        this.SIDE_LENGTH = sideLength;
+        getArea();
+        getPerimeter();
     }
 
     @Override
     public double getWidth() {
-        return side;
+        return SIDE_LENGTH;
     }
 
     @Override
     public double getHeight() {
-        return side;
+        return SIDE_LENGTH;
     }
 
     @Override
     public double getArea() {
-        return side * side;
+        area = SIDE_LENGTH * SIDE_LENGTH;
+        return area;
     }
 
     @Override
     public double getPerimeter() {
-        return 4 * side;
+        perimeter = 4 * SIDE_LENGTH;
+        return perimeter;
+    }
+
+    public String toString() {
+        return "Фигура - " + NAME + ", " +
+                "Площадь - " + area + ", " +
+                "Периметр - " + perimeter;
     }
 }

@@ -3,32 +3,45 @@ package ru.academits.kazantsev.rectangle;
 import ru.academits.kazantsev.shapes.Shapes;
 
 public class Rectangle implements Shapes {
-    private double width;
-    private double height;
+    private final String NAME;
+    private final double WIDTH;
+    private final double LENGTH;
+    private double area;
+    private double perimeter;
 
-    public Rectangle(double width, double height) {
-        this.width = width;
-        this.height = height;
+    public Rectangle(String name, double width, double LENGTH) {
+        this.NAME = name;
+        this.WIDTH = width;
+        this.LENGTH = LENGTH;
+        getArea();
+        getPerimeter();
     }
-
 
     @Override
     public double getWidth() {
-        return width;
+        return WIDTH;
     }
 
     @Override
     public double getHeight() {
-        return height;
+        return LENGTH;
     }
 
     @Override
     public double getArea() {
-        return width * height;
+        area = WIDTH * LENGTH;
+        return area;
     }
 
     @Override
     public double getPerimeter() {
-        return 2 * (width + height);
+        perimeter = 2 * (WIDTH + LENGTH);
+        return perimeter;
+    }
+
+    public String toString(){
+        return "Фигура - " + NAME + ", " +
+                "Площадь - " + area + ", " +
+                "Периметр - " + perimeter;
     }
 }
