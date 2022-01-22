@@ -6,15 +6,22 @@ import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
-        Range range = new Range(-5, 19);
-        Range range1 = new Range(-13, -3);
+        Range range1 = new Range(-5, 19);
+        range1.setFrom(10);
+        range1.setTo(6);
+        System.out.println(range1.getTo());
 
-        System.out.println(range.isInside(6));
+        Range range2 = new Range(-13, -3);
+        range2.setFrom(0);
+        range2.setTo(8);
+        System.out.println(range2.getFrom());
 
-        System.out.println("Length of range - " + range1.getLength());
+        System.out.println(range1.isInside(6));
 
-        System.out.println(range.getIntersectionRanges(range1));
-        System.out.println(Arrays.toString(range.getAdditionRanges(range1)));
-        System.out.println(Arrays.toString(range.getSubtractionRanges(range1)));
+        System.out.println("Length of range - " + range2.getLength());
+
+        System.out.println(range1.getIntersection(range2));
+        System.out.println(Arrays.toString(range1.getUnion(range2)));
+        System.out.println(Arrays.toString(range1.getDifference(range2)));
     }
 }
