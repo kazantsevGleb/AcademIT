@@ -15,15 +15,15 @@ public class Range {
         return from;
     }
 
-    public void setFrom (double from) {
+    public void setFrom(double from) {
         this.from = from;
     }
 
-    public double getTo () {
+    public double getTo() {
         return to;
     }
 
-    public void setTo (double to) {
+    public void setTo(double to) {
         this.to = to;
     }
 
@@ -37,66 +37,65 @@ public class Range {
 
     @Override
     public String toString() {
-        return String.format(Locale.US, "(%.1f; %.1f)", this.from, this.to);
+        return String.format(Locale.US, "(%.1f; %.1f)", from, to);
     }
 
     public Range getIntersection(Range range) {
-        Range intersectionRange;
-
-        if (this.from >= range.to || this.to <= range.from) {
-            intersectionRange = null;
-        } else {
-            intersectionRange = new Range(Math.max(this.from, range.from), Math.min(this.to, range.to));
+        if (from >= range.to || to <= range.from) {
+            return null;
         }
 
-        return intersectionRange;
+        return new Range(Math.max(from, range.from), Math.min(to, range.to));
     }
 
     public Range[] getUnion(Range range) {
-        Range[] unionRange;
-
-        if (this.from > range.to) {
-            unionRange = new Range[] {
+        if (from > range.to) {
+            return new Range[] {
                     new Range(range.from, range.to),
-                    new Range(this.from, this.to)
+                    new Range(from, to)
             };
-        } else if (this.to < range.from) {
-            unionRange = new Range[] {
-                    new Range(this.from, this.to),
+        }
+
+        if (to < range.from) {
+            return new Range[] {
+                    new Range(from, to),
                     new Range(range.from, range.to)
             };
-        } else {
-            unionRange = new Range[] {
-                    new Range(Math.min(this.from, range.from), Math.max(this.to, range.to))
-            };
         }
-        return unionRange;
+
+        return new Range[] {
+                new Range(Math.min(from, range.from), Math.max(to, range.to))
+        };
     }
 
+
     public Range[] getDifference(Range range) {
-        Range[] differenceRange;
-        if (this.from >= range.to || this.to <= range.from) {
-            differenceRange = new Range[] {
-                new Range(this.from, this.to)
+        if (from >= range.to || to <= range.from) {
+            return new Range[] {
+                    new Range(from, to)
             };
-        } else {
-            if (range.from < this.from && range.to <= this.to) {
-                differenceRange = new Range[] {
-                        new Range(range.from, this.from)
-                };
-            } else if (this.from <= range.from && this.to < range.to) {
-                differenceRange = new Range[] {
-                        new Range(this.from, range.from)
-                };
-            } else if (this.from < range.from && range.to < this.to) {
-                differenceRange = new Range[] {
-                        new Range(this.from, range.from),
-                        new Range(range.to, this.to)
-                };
-            } else {
-                return new Range[0];
-            }
         }
-        return differenceRange;
+
+        if (from < range.from && range.to < to) {
+            return new Range[] {
+                    new Range(from, range.from),
+                    new Range(range.to, to)
+            };
+        }
+
+        if (range.from <= from && range.to < to) {
+            return new Range[] {
+                    new Range(range.to, to)
+            };
+        }
+
+        if (from < range.from && to <= range.to) {
+            return new Range[] {
+                    new Range(from, range.from)
+            };
+        }
+
+        return new Range[0];
     }
 }
+
