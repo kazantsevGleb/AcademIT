@@ -39,7 +39,8 @@ public class Rectangle implements Shape {
 
     @Override
     public String toString() {
-        return String.format("Прямоугольник: Площадь - %.1f; Периметр - %.1f", getArea(), getPerimeter());
+        return String.format("Прямоугольник: Ширина - %.1f; Высота - %.1f; Площадь - %.1f; Периметр - %.1f",
+                getWidth(), getHeight(), getArea(), getPerimeter());
     }
 
     @Override

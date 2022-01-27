@@ -15,7 +15,7 @@ public class Main {
         Shape[] shapes = {
                 new Circle(99),
                 new Rectangle(51, 15),
-                new Square(18),
+                new Square(3000),
                 new Triangle(5, 0.2, 10.5, 7, -3, 8),
                 new Circle(990),
                 new Rectangle(30, 50),
