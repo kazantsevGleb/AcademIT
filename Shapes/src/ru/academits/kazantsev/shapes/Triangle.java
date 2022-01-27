@@ -1,7 +1,5 @@
 package ru.academits.kazantsev.shapes;
 
-import java.util.Objects;
-
 public class Triangle implements Shape {
     private double x1;
     private double y1;
@@ -17,17 +15,13 @@ public class Triangle implements Shape {
         this.y2 = y2;
         this.x3 = x3;
         this.y3 = y3;
-        getWidth();
-        getHeight();
-        getArea();
-        getPerimeter();
     }
 
     public double getX1() {
         return x1;
     }
 
-    public void setX1 (double x1) {
+    public void setX1(double x1) {
         this.x1 = x1;
     }
 
@@ -35,7 +29,7 @@ public class Triangle implements Shape {
         return y1;
     }
 
-    public void setY1 (double y1) {
+    public void setY1(double y1) {
         this.y1 = y1;
     }
 
@@ -43,7 +37,7 @@ public class Triangle implements Shape {
         return x2;
     }
 
-    public void setX2 (double x2) {
+    public void setX2(double x2) {
         this.x2 = x2;
     }
 
@@ -51,7 +45,7 @@ public class Triangle implements Shape {
         return y2;
     }
 
-    public void setY2 (double y2) {
+    public void setY2(double y2) {
         this.y2 = y2;
     }
 
@@ -59,7 +53,7 @@ public class Triangle implements Shape {
         return x3;
     }
 
-    public void setX3 (double x3) {
+    public void setX3(double x3) {
         this.x3 = x3;
     }
 
@@ -67,7 +61,7 @@ public class Triangle implements Shape {
         return y3;
     }
 
-    public void setY3 (double y3) {
+    public void setY3(double y3) {
         this.y3 = y3;
     }
 
@@ -86,8 +80,8 @@ public class Triangle implements Shape {
         return 0.5 * Math.abs((x2 - x1) * (y3 - y1) - (x3 - x1) * (y2 - y1));
     }
 
-    public double getSideLength(double fromX, double toX, double fromY, double toY) {
-        return Math.sqrt(Math.pow((toX - fromX), 2) + Math.pow((toY - fromY), 2));
+    private static double getSideLength(double x1, double x2, double y1, double y2) {
+        return Math.sqrt(Math.pow((x2 - x1), 2) + Math.pow((y2 - y1), 2));
     }
 
     @Override
@@ -97,11 +91,8 @@ public class Triangle implements Shape {
 
     @Override
     public String toString() {
-        return "Треугольник: " +
-                "Ширина - " + String.format("%.1f", getWidth()) + ", " +
-                "Высота - " + String.format("%.1f", getHeight()) + ", " +
-                "Площадь - " + String.format("%.1f", getArea()) + ", " +
-                "Периметр - " + String.format("%.1f", getPerimeter());
+        return String.format("Треугольник: Координаты вершин - (%.1f; %.1f), (%.1f; %.1f), (%.1f; %.1f); " +
+                "Площадь - %.1f; Периметр - %.1f", x1, y1, x2, y2, x3, y3, getArea(), getPerimeter());
     }
 
     @Override
@@ -126,6 +117,13 @@ public class Triangle implements Shape {
 
     @Override
     public int hashCode() {
-        return Objects.hash(x1, y1, x2, y2, x3, y3);
+        final int number = 24;
+        int hash = 1;
+
+        for (double element : new double[]{x1, y1, x2, y2, x3, y3}) {
+            hash = number * hash + (Double.hashCode(element));
+        }
+
+        return hash;
     }
 }

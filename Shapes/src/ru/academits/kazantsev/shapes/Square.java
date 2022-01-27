@@ -1,14 +1,10 @@
 package ru.academits.kazantsev.shapes;
 
-import java.util.Objects;
-
 public class Square implements Shape {
     private double sideLength;
 
     public Square(double sideLength) {
         this.sideLength = sideLength;
-        getArea();
-        getPerimeter();
     }
 
     public double getSideLength() {
@@ -41,9 +37,7 @@ public class Square implements Shape {
 
     @Override
     public String toString() {
-        return "Квадрат: " +
-                "Площадь - " + getArea() + ", " +
-                "Периметр - " + getPerimeter();
+        return String.format("Квадрат: Площадь - %.1f; Периметр - %.1f", getArea(), getPerimeter());
     }
 
     @Override
@@ -63,6 +57,11 @@ public class Square implements Shape {
 
     @Override
     public int hashCode() {
-        return Objects.hash(sideLength);
+        final int number = 24;
+        int hash = 1;
+
+        hash = number * hash + (Double.hashCode(sideLength));
+
+        return hash;
     }
 }

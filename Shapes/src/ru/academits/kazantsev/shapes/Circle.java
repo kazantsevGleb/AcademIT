@@ -1,7 +1,5 @@
 package ru.academits.kazantsev.shapes;
 
-import java.util.Objects;
-
 public class Circle implements Shape {
     private double radius;
     private final double diameter;
@@ -9,15 +7,13 @@ public class Circle implements Shape {
     public Circle(double radius) {
         this.radius = radius;
         diameter = 2 * radius;
-        getArea();
-        getPerimeter();
     }
 
     public double getRadius() {
         return radius;
     }
 
-    public void setRadius (double radius) {
+    public void setRadius(double radius) {
         this.radius = radius;
     }
 
@@ -43,10 +39,7 @@ public class Circle implements Shape {
 
     @Override
     public String toString() {
-        return "Круг: " +
-                "Радиус - " + radius + ", " +
-                "Площадь - " + String.format("%.1f", getArea()) + ", " +
-                "Периметр - " + String.format("%.1f", getPerimeter());
+        return String.format("Круг: Радиус - %.1f; Площадь - %.1f; Периметр - %.1f", radius, getArea(), getPerimeter());
     }
 
     @Override
@@ -66,6 +59,11 @@ public class Circle implements Shape {
 
     @Override
     public int hashCode() {
-        return Objects.hash(radius);
+        final int number = 24;
+        int hash = 1;
+
+        hash = number * hash + (Double.hashCode(radius));
+
+        return hash;
     }
 }

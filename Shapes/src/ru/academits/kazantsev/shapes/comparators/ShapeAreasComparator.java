@@ -1,6 +1,7 @@
 package ru.academits.kazantsev.shapes.comparators;
 
 import ru.academits.kazantsev.shapes.Shape;
+
 import java.util.Comparator;
 
 public class ShapeAreasComparator implements Comparator<Shape> {

@@ -1,7 +1,5 @@
 package ru.academits.kazantsev.shapes;
 
-import java.util.Objects;
-
 public class Rectangle implements Shape {
     private double width;
     private double height;
@@ -9,8 +7,6 @@ public class Rectangle implements Shape {
     public Rectangle(double width, double height) {
         this.width = width;
         this.height = height;
-        getArea();
-        getPerimeter();
     }
 
     @Override
@@ -18,7 +14,7 @@ public class Rectangle implements Shape {
         return width;
     }
 
-    public void setWidth (double width) {
+    public void setWidth(double width) {
         this.width = width;
     }
 
@@ -27,7 +23,7 @@ public class Rectangle implements Shape {
         return height;
     }
 
-    public void setHeight (double height) {
+    public void setHeight(double height) {
         this.height = height;
     }
 
@@ -43,9 +39,7 @@ public class Rectangle implements Shape {
 
     @Override
     public String toString() {
-        return "Прямоугольник: " +
-                "Площадь - " + getArea() + ", " +
-                "Периметр - " + getPerimeter();
+        return String.format("Прямоугольник: Площадь - %.1f; Периметр - %.1f", getArea(), getPerimeter());
     }
 
     @Override
@@ -65,6 +59,13 @@ public class Rectangle implements Shape {
 
     @Override
     public int hashCode() {
-        return Objects.hash(width, height);
+        final int number = 24;
+        int hash = 1;
+
+        for (double element : new double[]{width, height}) {
+            hash = number * hash + (Double.hashCode(element));
+        }
+
+        return hash;
     }
 }
