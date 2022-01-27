@@ -9,4 +9,3 @@ public class ShapeAreasComparator implements Comparator<Shape> {
         return Double.compare(shape1.getArea(), shape2.getArea());
     }
 }
-
