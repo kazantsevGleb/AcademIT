@@ -2,11 +2,9 @@ package ru.academits.kazantsev.shapes;
 
 public class Circle implements Shape {
     private double radius;
-    private final double diameter;
 
     public Circle(double radius) {
         this.radius = radius;
-        diameter = 2 * radius;
     }
 
     public double getRadius() {
@@ -17,14 +15,18 @@ public class Circle implements Shape {
         this.radius = radius;
     }
 
+    private static double getDiameter(double radius) {
+        return 2 * radius;
+    }
+
     @Override
     public double getWidth() {
-        return diameter;
+        return getDiameter(radius);
     }
 
     @Override
     public double getHeight() {
-        return diameter;
+        return getDiameter(radius);
     }
 
     @Override
@@ -59,10 +61,10 @@ public class Circle implements Shape {
 
     @Override
     public int hashCode() {
-        final int number = 24;
+        final int prime = 31;
         int hash = 1;
 
-        hash = number * hash + (Double.hashCode(radius));
+        hash = prime * hash + Double.hashCode(radius);
 
         return hash;
     }

@@ -1,6 +1,6 @@
 package ru.academits.kazantsev.shapes_main;
 
-import ru.academits.kazantsev.shapes.comparators.ShapeAreasComparator;
+import ru.academits.kazantsev.shapes.comparators.ShapeAreaComparator;
 import ru.academits.kazantsev.shapes.comparators.ShapePerimeterComparator;
 import ru.academits.kazantsev.shapes.Circle;
 import ru.academits.kazantsev.shapes.Rectangle;
@@ -25,7 +25,7 @@ public class Main {
                 new Rectangle(300, 300)
         };
 
-        Arrays.sort(shapes, new ShapeAreasComparator());
+        Arrays.sort(shapes, new ShapeAreaComparator());
         System.out.println("Параметры фигуры с наибольшей площадью - " + shapes[shapes.length - 1]);
 
         Arrays.sort(shapes, new ShapePerimeterComparator());
