@@ -15,18 +15,18 @@ public class Circle implements Shape {
         this.radius = radius;
     }
 
-    private static double getDiameter(double radius) {
+    public double getDiameter() {
         return 2 * radius;
     }
 
     @Override
     public double getWidth() {
-        return getDiameter(radius);
+        return getDiameter();
     }
 
     @Override
     public double getHeight() {
-        return getDiameter(radius);
+        return getDiameter();
     }
 
     @Override
@@ -36,7 +36,7 @@ public class Circle implements Shape {
 
     @Override
     public double getPerimeter() {
-        return 2 * Math.PI * radius;
+        return Math.PI * getDiameter();
     }
 
     @Override
