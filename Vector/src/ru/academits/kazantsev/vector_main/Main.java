@@ -1,4 +1,4 @@
-package vector_main;
+package ru.academits.kazantsev.vector_main;
 
 import ru.academits.kazantsev.vector.Vector;
 
