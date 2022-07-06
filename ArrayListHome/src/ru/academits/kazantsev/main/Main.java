@@ -1,6 +1,5 @@
 package ru.academits.kazantsev.main;
 
-import javax.swing.text.html.HTMLDocument;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
