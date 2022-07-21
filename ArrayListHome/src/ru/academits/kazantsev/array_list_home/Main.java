@@ -1,4 +1,4 @@
-package ru.academits.kazantsev.main;
+package ru.academits.kazantsev.array_list_home;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -14,12 +14,13 @@ public class Main {
             }
 
             System.out.println("Список с текстом - " + lines);
+        } catch (FileNotFoundException e) {
+            System.out.println("Файл не найден, убедитесь в его наличии!");
         } catch (IOException e) {
-            System.out.println("Ошибка при чтении файла, убедитесь в его наличии!");
+            System.out.println("Ошибка при чтении файла");
         }
 
-        ArrayList<Integer> numbers1 = new ArrayList<>(
-                Arrays.asList(1, 2, 2, 4, 2, 6, 2, 8, 9, 10, 10, 12, 100, 200, 500, 333));
+        ArrayList<Integer> numbers1 = new ArrayList<>(Arrays.asList(1, 2, 2, 4, 2, 6, 2, 8, 9, 10, 10, 12, 100, 200, 500, 333));
 
         for (int i = 0; i < numbers1.size(); i++) {
             if (numbers1.get(i) % 2 == 0) {
@@ -30,12 +31,11 @@ public class Main {
 
         System.out.println("Список нечетных чисел - " + numbers1);
 
-        ArrayList<Integer> numbers2 = new ArrayList<>(
-                Arrays.asList(2, 2, 4, 1, 5, 9, 9, 9, 10));
+        ArrayList<Integer> numbers2 = new ArrayList<>(Arrays.asList(2, 2, 4, 1, 5, 9, 9, 9, 10));
 
         ArrayList<Integer> numbersWithoutRepeat = new ArrayList<>(numbers2.size());
 
-        for (int number : numbers2) {
+        for (Integer number : numbers2) {
             if (!numbersWithoutRepeat.contains(number)) {
                 numbersWithoutRepeat.add(number);
             }
