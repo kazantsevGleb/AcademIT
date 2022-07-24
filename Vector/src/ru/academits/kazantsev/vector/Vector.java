@@ -36,6 +36,10 @@ public class Vector {
         this.components = Arrays.copyOf(components, components.length);
     }
 
+    public Vector(int size, Vector vector) {
+        components = Arrays.copyOf(vector.components, size);
+    }
+
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder().append("{");
