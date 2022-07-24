@@ -5,20 +5,22 @@ import java.util.Arrays;
 public class Vector {
     private double[] components;
 
-    public Vector(int dimension) {
-        if (dimension <= 0) {
-            throw new IllegalArgumentException("Размерность вектора должна быть больше " + dimension);
+    public Vector(int size) {
+        if (size <= 0) {
+            throw new IllegalArgumentException(
+                    String.format("Ошибка создания вектора с размерностью %d, размерность вектора не может быть меньше 0", size));
         }
 
-        components = new double[dimension];
+        components = new double[size];
     }
 
-    public Vector(int dimension, double[] components) {
-        if (dimension <= 0) {
-            throw new IllegalArgumentException("Размерность вектора должна быть больше " + dimension);
+    public Vector(int size, double[] components) {
+        if (size <= 0) {
+            throw new IllegalArgumentException(
+                    String.format("Ошибка создания вектора с размерностью %d, размерность вектора не может быть меньше 0", size));
         }
 
-        this.components = Arrays.copyOf(components, dimension);
+        this.components = Arrays.copyOf(components, size);
     }
 
     public Vector(Vector vector) {
@@ -26,6 +28,11 @@ public class Vector {
     }
 
     public Vector(double[] components) {
+        if (components.length <= 0) {
+            throw new IllegalArgumentException(
+                    String.format("Ошибка создания вектора с размерностью %d, размерность вектора не может быть меньше 0", components.length));
+        }
+
         this.components = Arrays.copyOf(components, components.length);
     }
 
@@ -67,32 +74,28 @@ public class Vector {
     }
 
     public void add(Vector vector) {
-        if (components.length < vector.components.length) {
-            components = Arrays.copyOf(components, vector.components.length);
-        }
+        components = Arrays.copyOf(components, Math.max(vector.getSize(), getSize()));
 
-        for (int i = 0; i < components.length; i++) {
+        for (int i = 0; i < Math.min(vector.getSize(), getSize()); i++) {
             components[i] += vector.components[i];
         }
     }
 
     public void subtract(Vector vector) {
-        if (components.length < vector.components.length) {
-            components = Arrays.copyOf(components, vector.components.length);
-        }
+        components = Arrays.copyOf(components, Math.max(vector.getSize(), getSize()));
 
-        for (int i = 0; i < components.length; i++) {
+        for (int i = 0; i < Math.min(vector.getSize(), getSize()); i++) {
             components[i] -= vector.components[i];
         }
     }
 
-    public void multiply(double scalarMultiplier) {
+    public void multiply(double scalar) {
         for (int i = 0; i < components.length; i++) {
-            components[i] *= scalarMultiplier;
+            components[i] *= scalar;
         }
     }
 
-    public void reversal() {
+    public void getInverse() {
         multiply(-1);
     }
 
@@ -107,15 +110,15 @@ public class Vector {
     }
 
     public double getComponent(int index) {
-        if (index < 0 || index > components.length - 1) {
-            throw new ArrayIndexOutOfBoundsException(
+        if (index < 0 || index >= components.length) {
+            throw new IndexOutOfBoundsException(
                     String.format("Необходимо ввести значение индекса в диапазоне от 0 до %d, передано %d", components.length - 1, index));
         }
 
         return components[index];
     }
 
-    public void setComponent(int index, int component) {
+    public void setComponent(int index, double component) {
         if (index < 0 || index > components.length - 1) {
             throw new ArrayIndexOutOfBoundsException(
                     String.format("Необходимо ввести значение индекса в диапазоне от 0 до %d, передано %d", components.length - 1, index));
@@ -131,20 +134,20 @@ public class Vector {
         return resultVector;
     }
 
-    public static Vector getSubtract(Vector vector1, Vector vector2) {
+    public static Vector getSubtraction(Vector vector1, Vector vector2) {
         Vector resultVector = new Vector(vector1);
         resultVector.subtract(vector2);
 
         return resultVector;
     }
 
-    public static double getMultiplyScalar(Vector vector1, Vector vector2) {
-        double multiply = 0;
+    public static double getScalarMultiplication(Vector vector1, Vector vector2) {
+        double multiplicationResult = 0;
 
-        for (int i = 0; i < vector1.components.length; i++) {
-            multiply = vector1.components[i] * vector2.components[i];
+        for (int i = 0; i < Math.min(vector1.getSize(), vector2.getSize()); i++) {
+            multiplicationResult += vector1.components[i] * vector2.components[i];
         }
 
-        return multiply;
+        return multiplicationResult;
     }
 }
