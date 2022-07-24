@@ -8,7 +8,7 @@ public class Vector {
     public Vector(int size) {
         if (size <= 0) {
             throw new IllegalArgumentException(
-                    String.format("Ошибка создания вектора с размерностью %d, размерность вектора не может быть меньше 0", size));
+                    String.format("Ошибка создания вектора с размерностью %d, размерность вектора не может быть меньше 1", size));
         }
 
         components = new double[size];
@@ -17,7 +17,7 @@ public class Vector {
     public Vector(int size, double[] components) {
         if (size <= 0) {
             throw new IllegalArgumentException(
-                    String.format("Ошибка создания вектора с размерностью %d, размерность вектора не может быть меньше 0", size));
+                    String.format("Ошибка создания вектора с размерностью %d, размерность вектора не может быть меньше 1", size));
         }
 
         this.components = Arrays.copyOf(components, size);
@@ -30,7 +30,7 @@ public class Vector {
     public Vector(double[] components) {
         if (components.length <= 0) {
             throw new IllegalArgumentException(
-                    String.format("Ошибка создания вектора с размерностью %d, размерность вектора не может быть меньше 0", components.length));
+                    String.format("Ошибка создания вектора с размерностью %d, размерность вектора не может быть меньше 1", components.length));
         }
 
         this.components = Arrays.copyOf(components, components.length);
