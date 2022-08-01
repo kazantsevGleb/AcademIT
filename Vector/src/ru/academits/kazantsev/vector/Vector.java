@@ -108,7 +108,7 @@ public class Vector {
         }
     }
 
-    public void expand() {
+    public void reverse() {
         multiply(-1);
     }
 
@@ -132,7 +132,7 @@ public class Vector {
     }
 
     public void setComponent(int index, double component) {
-        if (index < 0 || index > components.length - 1) {
+        if (index < 0 || index >= components.length) {
             throw new IndexOutOfBoundsException(
                     String.format("Необходимо ввести значение индекса в диапазоне от 0 до %d, передано %d", components.length - 1, index));
         }
@@ -155,13 +155,13 @@ public class Vector {
     }
 
     public static double getScalarProduct(Vector vector1, Vector vector2) {
-        double multiplicationResult = 0;
+        double product = 0;
         int minVectorSize = Math.min(vector1.getSize(), vector2.getSize());
 
         for (int i = 0; i < minVectorSize; i++) {
-            multiplicationResult += vector1.components[i] * vector2.components[i];
+            product += vector1.components[i] * vector2.components[i];
         }
 
-        return multiplicationResult;
+        return product;
     }
 }
