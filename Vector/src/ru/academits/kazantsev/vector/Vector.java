@@ -102,14 +102,16 @@ public class Vector {
         }
     }
 
-    public void multiply(double scalar) {
+    public Vector getMultiply(double scalar) {
         for (int i = 0; i < components.length; i++) {
             components[i] *= scalar;
         }
+
+        return this;
     }
 
     public void reverse() {
-        multiply(-1);
+        getMultiply(-1);
     }
 
     public double getLength() {

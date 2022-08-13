@@ -19,13 +19,25 @@ public class Main {
         };
 
         Vector[] vectors3 = {
-                new Vector(new double[]{3.1}),
-                new Vector(new double[]{5}),
-                new Vector(new double[]{20}),
-                new Vector(new double[]{-17})
+                new Vector(new double[]{4, 2, -1, 2}),
+                new Vector(new double[]{3, 0, 4, -2}),
+                new Vector(new double[]{2, 3, 3, 5})
         };
 
-        Vector vector = new Vector(new double[]{3.1, 1, 9, 22});
+        Vector[] vectors4 = {
+                new Vector(new double[]{2, 2, -1, 10, 5}),
+                new Vector(new double[]{3, 2, 4, 4, 4}),
+                new Vector(new double[]{3, 4, 4, 2, 2}),
+                new Vector(new double[]{6, 7, 5, 6, 2}),
+                new Vector(new double[]{2, 3, 3, 3, 5})
+        };
+
+        Vector[] vectors5 = {
+                new Vector(new double[]{2, 2}),
+                new Vector(new double[]{3, 2})
+        };
+
+        Vector vector = new Vector(new double[]{-1, 2, 1, 3});
         Matrix matrix1 = new Matrix(5, 5);
         Matrix matrix2 = new Matrix(matrix1);
         Matrix matrix3 = new Matrix(components);
@@ -34,19 +46,23 @@ public class Main {
         Matrix matrix6 = new Matrix(vectors1);
         Matrix matrix7 = new Matrix(vectors2);
         Matrix matrix8 = new Matrix(vectors3);
+        Matrix matrix9 = new Matrix(vectors4);
+        Matrix matrix10 = new Matrix(vectors5);
 
-        matrix2.setComponent(3, new Vector(new double[]{1, 2, 3, 4, 5}));
-        System.out.println("Вектор-строка по заданному индексу: " + matrix2.getLineVector(3));
+        matrix2.setRow(3, new Vector(new double[]{1, 2, 3, 4, 5}));
+        System.out.println("Вектор-строка по заданному индексу: " + matrix2.getRow(3));
 
-        System.out.printf("Количество строк матрицы: %d, столбцов: %d%n", matrix3.getLineCount(), matrix3.getColumnCount());
-        System.out.println("Столбец-вектор по указанному индексу: " + matrix4.getColumnVector(0));
+        System.out.printf("Количество строк матрицы: %d, столбцов: %d%n", matrix3.getRowsCount(), matrix3.getColumnsCount());
+        System.out.println("Столбец-вектор по указанному индексу: " + matrix4.getColumn(0));
         System.out.println("Исходная матрица, до транспонирования: " + matrix5);
         System.out.println("Транспонированная матрица: " + matrix5.transpose());
-        System.out.println("Сумма матриц 5 и 3: " + matrix5.getSum(matrix3));
-        System.out.println("Разность матриц 5 и 3: " + matrix5.getDifference(matrix3.getProduct(4)));
+        System.out.println("Сумма матриц 5 и 3: " + matrix5.transpose().add(matrix3));
+        System.out.println("Разность матриц 5 и 3: " + matrix5.subtract(matrix3.multiplyByScalar(4)));
         System.out.println("Произведение матрицы 8 и вектора: " + matrix8.multiplyByVector(vector));
         System.out.println("Статический метод определения суммы матриц: " + Matrix.getSum(matrix3, matrix5));
         System.out.println("Статический метод определения разности матриц: " + Matrix.getDifference(matrix5, matrix3));
         System.out.println("Произведение матриц 6 и 7: " + Matrix.getProduct(matrix6, matrix7));
+        System.out.println("Определитель матрицы 9: " +  matrix9.getDeterminant());
+        System.out.println("Определитель матрицы 10: " +  matrix10.getDeterminant());
     }
 }

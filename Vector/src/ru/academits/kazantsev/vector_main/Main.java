@@ -36,7 +36,6 @@ public class Main {
 
         System.out.println("Скалярное умножение векторов 1 и 2: " + Vector.getScalarProduct(vector1, vector2));
 
-        vector1.multiply(3);
-        System.out.println("Умножение вектора 1 на скаляр: " + vector1);
+        System.out.println("Умножение вектора 1 на скаляр: " + vector1.getMultiply(3));
     }
 }
