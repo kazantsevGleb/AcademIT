@@ -16,17 +16,19 @@ public class Main {
         System.out.println("Размер списка имен: " + names.getSize());
         System.out.println("Первое имя в списке: " + names.getFirstNodeValue());
         System.out.println("Третье имя в списке: " + names.getNodeValue(2));
-        System.out.println(names.deleteNode(3));
+        System.out.println("Удаление третьего имени из списка: " + names.deleteNode(3));
+
         names.addNode("Dima", 4);
         names.addNode("Kristi", 4);
-        System.out.println(names.isDeleteNodeOfValue("Anna"));
 
-        names1.copy(names);
+        System.out.println("Элемент с именем \"Anna\" удален: " + names.isDeleteNodeOfValue("Anna"));
+        System.out.println("Копия списка имен: " + names1.copy(names));
 
         names.addFirstNode("Inna");
-        System.out.println(names);
 
-        System.out.println(names1);
+        System.out.println("Исходный список: " + names);
+        System.out.println("Развернутый список: " + names.getReverse());
+
 
     }
 }

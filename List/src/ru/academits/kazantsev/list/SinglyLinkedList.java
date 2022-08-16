@@ -109,7 +109,7 @@ public class SinglyLinkedList<T> {
         return value;
     }
 
-    public boolean isDeleteNodeOfValue (T data) {
+    public boolean isDeleteNodeOfValue(T data) {
         boolean isDeleted = false;
 
 
@@ -137,7 +137,8 @@ public class SinglyLinkedList<T> {
 
         ListNode<T> addedNode;
 
-        for (ListNode<T> currentNode = head, previousNode = null; currentNode != null; previousNode = currentNode, currentNode = currentNode.getNext()) {
+        for (ListNode<T> currentNode = head, previousNode = null; currentNode != null;
+             previousNode = currentNode, currentNode = currentNode.getNext()) {
             if (current == index && previousNode != null) {
                 addedNode = new ListNode<>(data, currentNode);
 
@@ -152,11 +153,26 @@ public class SinglyLinkedList<T> {
         increaseSize();
     }
 
-    public SinglyLinkedList<T> copy (SinglyLinkedList<T> copiedList) {
-       head = copiedList.head;
-       size = copiedList.size;
+    public SinglyLinkedList<T> copy(SinglyLinkedList<T> copiedList) {
+        head = copiedList.head;
+        size = copiedList.size;
 
         return copiedList;
+    }
+
+    public SinglyLinkedList<T> getReverse() {
+        ListNode<T> previousNode = null;
+
+        for (ListNode<T> currentNode = head; currentNode != null; ) {
+            ListNode<T> nextNode = currentNode.getNext();
+            currentNode.setNext(previousNode);
+            previousNode = currentNode;
+            currentNode = nextNode;
+        }
+
+        head = previousNode;
+
+        return this;
     }
 
     public String toString() {
