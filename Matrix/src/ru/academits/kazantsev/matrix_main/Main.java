@@ -33,8 +33,9 @@ public class Main {
         };
 
         Vector[] vectors5 = {
-                new Vector(new double[]{2, 2}),
-                new Vector(new double[]{3, 2})
+                new Vector(new double[]{1, 0, 0}),
+                new Vector(new double[]{0, 0, 1}),
+                new Vector(new double[]{0, 1, 0})
         };
 
         Vector vector = new Vector(new double[]{-1, 2, 1, 3});
