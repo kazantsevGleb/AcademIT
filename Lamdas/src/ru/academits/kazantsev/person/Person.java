@@ -2,6 +2,7 @@ package ru.academits.kazantsev.person;
 
 import java.util.Objects;
 
+
 public class Person {
     String name;
     int age;
