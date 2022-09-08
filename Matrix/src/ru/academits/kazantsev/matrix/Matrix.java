@@ -32,21 +32,21 @@ public class Matrix {
     }
 
     public Matrix(double[][] matrixCoefficients) {
-        if (matrixCoefficients.length == 0 || matrixCoefficients[0].length == 0) {
-            throw new IllegalArgumentException("Ошибка создания матрицы, минимальная размерность матрицы должна быть 1х1");
+        if (matrixCoefficients.length == 0) {
+            throw new IllegalArgumentException("Переданный массив пуст");
         }
 
         rows = new Vector[matrixCoefficients.length];
-        int vectorSize = 0;
+        int maxVectorSize = 0;
 
         for (double[] vector : matrixCoefficients) {
-            if (vector.length > vectorSize) {
-                vectorSize = vector.length;
+            if (vector.length > maxVectorSize) {
+                maxVectorSize = vector.length;
             }
         }
 
         for (int i = 0; i < matrixCoefficients.length; i++) {
-            rows[i] = new Vector(vectorSize, matrixCoefficients[i]);
+            rows[i] = new Vector(maxVectorSize, matrixCoefficients[i]);
         }
     }
 
@@ -95,7 +95,8 @@ public class Matrix {
 
         if (vectorSize != columnsCount) {
             throw new IllegalArgumentException(
-                    String.format("Ошибка изменения строки, размер вектора должен быть равен количеству столбцов матрицы, переданный размер вектора: %d", vectorSize)
+                    String.format("Ошибка изменения строки, размер вектора должен быть равен количеству столбцов матрицы: %d, переданный размер вектора: %d",
+                            columnsCount, vectorSize)
             );
         }
 
@@ -139,12 +140,17 @@ public class Matrix {
         return this;
     }
 
+    private static boolean isZero(double number1) {
+        final double EPSILON = 1E-5;
+
+        return Math.abs(number1 - 0.0) < EPSILON;
+    }
+
     public double getDeterminant() {
         if (getRowsCount() != getColumnsCount()) {
             throw new UnsupportedOperationException(String.format("Определитель можно вычислить только у квадратной матрицы, текущий размер матрицы: %d x %d ",
                     getRowsCount(), getColumnsCount()));
         }
-
 
         double size = rows.length;
 
@@ -162,7 +168,7 @@ public class Matrix {
 
         for (int i = 0; i < size; i++) {
             for (int j = i + 1; j < size; j++) {
-                if (matrix.rows[i].getComponent(i) == 0) {
+                if (isZero(matrix.rows[i].getComponent(i))) {
                     swapRows(matrix, i, j);
                     determinant *= -1;
                 }
@@ -178,18 +184,19 @@ public class Matrix {
         return determinant;
     }
 
-    private void swapRows(Matrix matrix, int indexRow1, int indexRow2) {
-        Vector temp = matrix.getRow(indexRow1);
-        matrix.setRow(indexRow1, matrix.getRow(indexRow2));
-        matrix.setRow(indexRow2, temp);
+    private static void swapRows(Matrix matrix, int row1Index, int row2Index) {
+        Vector temp = matrix.rows[row1Index];
+        matrix.rows[row1Index] = matrix.rows[row2Index];
+        matrix.rows[row2Index] = temp;
     }
 
     public Vector multiplyByVector(Vector vector) {
         int vectorSize = vector.getSize();
+        int columnCount = getColumnsCount();
 
-        if (getColumnsCount() != vectorSize) {
-            throw new IllegalArgumentException(String.format("Произведение не определено, размер вектора должен быть равен количеству столбцов матрицы, " +
-                    "переданный размер вектора: %d", vectorSize));
+        if (columnCount != vectorSize) {
+            throw new IllegalArgumentException(String.format("Произведение не определено, размер вектора должен быть равен количеству столбцов матрицы: %d, " +
+                    "переданный размер вектора: %d", columnCount, vectorSize));
         }
 
         Vector resultVector = new Vector(rows.length);
@@ -202,7 +209,7 @@ public class Matrix {
     }
 
     public Matrix add(Matrix matrix) {
-        Matrix.checkSizeEquality(this, matrix);
+        checkSizeEquality(this, matrix);
 
         for (int i = 0; i < rows.length; i++) {
             rows[i].add(matrix.rows[i]);
@@ -212,7 +219,7 @@ public class Matrix {
     }
 
     public Matrix subtract(Matrix matrix) {
-        Matrix.checkSizeEquality(this, matrix);
+        checkSizeEquality(this, matrix);
 
         for (int i = 0; i < rows.length; i++) {
             rows[i].subtract(matrix.rows[i]);
@@ -222,13 +229,13 @@ public class Matrix {
     }
 
     public static Matrix getSum(Matrix matrix1, Matrix matrix2) {
-        Matrix.checkSizeEquality(matrix1, matrix2);
+        checkSizeEquality(matrix1, matrix2);
 
         return new Matrix(matrix1).add(matrix2);
     }
 
     public static Matrix getDifference(Matrix matrix1, Matrix matrix2) {
-        Matrix.checkSizeEquality(matrix1, matrix2);
+        checkSizeEquality(matrix1, matrix2);
 
         return new Matrix(matrix1).subtract(matrix2);
     }

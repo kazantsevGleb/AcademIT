@@ -63,7 +63,7 @@ public class Main {
         System.out.println("Статический метод определения суммы матриц: " + Matrix.getSum(matrix3, matrix5));
         System.out.println("Статический метод определения разности матриц: " + Matrix.getDifference(matrix5, matrix3));
         System.out.println("Произведение матриц 6 и 7: " + Matrix.getProduct(matrix6, matrix7));
-//        System.out.println("Определитель матрицы 9: " +  matrix9.getDeterminant());
+        System.out.println("Определитель матрицы 9: " +  matrix9.getDeterminant());
         System.out.println("Определитель матрицы 10: " +  matrix10.getDeterminant());
     }
 }
