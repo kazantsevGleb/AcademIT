@@ -33,9 +33,9 @@ public class Main {
         };
 
         Vector[] vectors5 = {
-                new Vector(new double[]{1, 0, 0}),
-                new Vector(new double[]{0, 0, 1}),
-                new Vector(new double[]{0, 1, 0})
+                new Vector(new double[]{5, 7, 1}),
+                new Vector(new double[]{-4, 1, 0}),
+                new Vector(new double[]{2, 0, 3})
         };
 
         Vector vector = new Vector(new double[]{-1, 2, 1, 3});
@@ -63,7 +63,7 @@ public class Main {
         System.out.println("Статический метод определения суммы матриц: " + Matrix.getSum(matrix3, matrix5));
         System.out.println("Статический метод определения разности матриц: " + Matrix.getDifference(matrix5, matrix3));
         System.out.println("Произведение матриц 6 и 7: " + Matrix.getProduct(matrix6, matrix7));
-        System.out.println("Определитель матрицы 9: " +  matrix9.getDeterminant());
+//        System.out.println("Определитель матрицы 9: " +  matrix9.getDeterminant());
         System.out.println("Определитель матрицы 10: " +  matrix10.getDeterminant());
     }
 }

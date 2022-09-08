@@ -145,19 +145,19 @@ public class Matrix {
                     getRowsCount(), getColumnsCount()));
         }
 
-        Matrix matrix = new Matrix(rows);
-        double size = matrix.rows.length;
 
+        double size = rows.length;
 
         if (size == 1) {
-            return matrix.rows[0].getComponent(0);
+            return rows[0].getComponent(0);
         }
 
         if (size == 2) {
-            return matrix.rows[0].getComponent(0) * matrix.rows[1].getComponent(1) -
-                    matrix.rows[1].getComponent(0) * matrix.rows[0].getComponent(1);
+            return rows[0].getComponent(0) * rows[1].getComponent(1) -
+                    rows[1].getComponent(0) * rows[0].getComponent(1);
         }
 
+        Matrix matrix = new Matrix(rows);
         double determinant = 1;
 
         for (int i = 0; i < size; i++) {
@@ -169,10 +169,10 @@ public class Matrix {
 
                 double multiplier = matrix.rows[j].getComponent(i) / matrix.rows[i].getComponent(i);
 
-                matrix.setRow(j, Vector.getDifference(matrix.rows[j], new Vector(matrix.getRow(i)).multiply(multiplier)));
+                matrix.setRow(j, Vector.getDifference(matrix.rows[j], matrix.getRow(i).multiply(multiplier)));
             }
 
-            determinant *= Math.round(matrix.rows[i].getComponent(i));
+            determinant *= matrix.rows[i].getComponent(i);
         }
 
         return determinant;
