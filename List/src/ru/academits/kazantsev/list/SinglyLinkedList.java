@@ -1,5 +1,7 @@
 package ru.academits.kazantsev.list;
 
+import java.util.NoSuchElementException;
+
 public class SinglyLinkedList<T> {
     private ListNode<T> head;
     private int size;
@@ -11,8 +13,8 @@ public class SinglyLinkedList<T> {
         return size;
     }
 
-    public T getFirstData() {
-        isEmpty(this);
+    public T getFirst() {
+        checkEmpty();
 
         return head.getData();
     }
@@ -23,75 +25,68 @@ public class SinglyLinkedList<T> {
     }
 
     public T get(int index) {
-        validateSize(this, index);
+        validateIndex(index);
 
-        return getNodeDataBy(index).getData();
+        return getNode(index).getData();
     }
 
     public T set(int index, T data) {
-        validateSize(this, index);
+        validateIndex(index);
 
-        ListNode<T> currentNode = getNodeDataBy(index);
-        T oldData = getNodeDataBy(index - 1).getData();
+        ListNode<T> currentNode = getNode(index);
+        T oldData = currentNode.getData();
         currentNode.setData(data);
 
         return oldData;
     }
 
-    private ListNode<T> getNodeDataBy(int index) {
-        validateSize(this, index);
+    private ListNode<T> getNode(int index) {
+        validateIndex(index);
+        ListNode<T> currentNode = head;
 
-        int i = 0;
-
-        for (ListNode<T> currentNode = head; currentNode != null; currentNode = currentNode.getNext()) {
+        for (int i = 0; currentNode != null; currentNode = currentNode.getNext(), i++) {
             if (i == index) {
-                return currentNode;
-            }
-
-            i++;
-        }
-
-        return new ListNode<>(null);
-    }
-
-    public void deleteFirst() {
-        isEmpty(this);
-
-        head = head.getNext();
-        size--;
-    }
-
-    public T deleteBy(int index) {
-        validateSize(this, index);
-
-        if (index == 0) {
-            deleteFirst();
-        }
-
-        int current = 0;
-        T deletedData = null;
-
-        for (ListNode<T> currentNode = head, previousNode = null; currentNode != null; previousNode = currentNode, currentNode = currentNode.getNext()) {
-            if (current == index && previousNode != null) {
-                deletedData = currentNode.getData();
-                previousNode.setNext(currentNode.getNext());
-
                 break;
             }
-
-            current++;
         }
 
+        return currentNode;
+    }
+
+    public T deleteFirst() {
+        checkEmpty();
+
+        T oldData = head.getData();
+        head = head.getNext();
+
         size--;
+
+        return oldData;
+    }
+
+    public T delete(int index) {
+        validateIndex(index);
+
+        if (index == 0) {
+            return deleteFirst();
+        }
+
+        ListNode<T> currentNode = getNode(index - 1);
+        T deletedData = currentNode.getNext().getData();
+        currentNode.setNext(currentNode.getNext().getNext());
+        size--;
+
         return deletedData;
     }
 
-    public boolean deleteBy(T data) {
-        if (head.getData() == data) {
+    public boolean delete(T data) {
+        if (head.getData().equals(data)) {
             deleteFirst();
+
+            return true;
         }
 
-        for (ListNode<T> currentNode = head, previousNode = null; currentNode != null;
+        for (ListNode<T> currentNode = head.getNext(), previousNode = null; currentNode != null;
              previousNode = currentNode, currentNode = currentNode.getNext()) {
             if (currentNode.getData().equals(data) && previousNode != null) {
                 previousNode.setNext(currentNode.getNext());
@@ -105,32 +100,18 @@ public class SinglyLinkedList<T> {
     }
 
     public void add(int index, T data) {
-        validateSize(this, index);
+        validateIndex(index);
 
         if (index == 0) {
             addFirst(data);
+        } else {
+            ListNode<T> addedNode = new ListNode<>(data);
+            ListNode<T> temp = getNode(index - 1);
+            addedNode.setNext(temp.getNext());
+            temp.setNext(addedNode);
+
+            size++;
         }
-
-        int i = 0;
-
-        for (ListNode<T> currentNode = head, previousNode = null; currentNode != null;
-             previousNode = currentNode, currentNode = currentNode.getNext()) {
-            if (i == index && previousNode != null) {
-                if (currentNode.getNext() == null) {
-                    currentNode.setNext(new ListNode<>(data, null));
-
-                    break;
-                }
-
-                previousNode.setNext(new ListNode<>(data, currentNode));
-
-                break;
-            }
-
-            i++;
-        }
-
-        size++;
     }
 
     public SinglyLinkedList<T> copy() {
@@ -139,15 +120,15 @@ public class SinglyLinkedList<T> {
         }
 
         SinglyLinkedList<T> copiedList = new SinglyLinkedList<>();
-        copiedList.head = new ListNode<>(getFirstData());
+        copiedList.addFirst(head.getData());
 
-        for (ListNode<T> currentNode = head; currentNode.getNext() != null; ) {
-            ListNode<T> nextNode = currentNode.getNext();
-            copiedList.addFirst(nextNode.getData());
-            currentNode = nextNode;
+        for (ListNode<T> currentNode = head.getNext(), copiedNode = copiedList.head;
+             currentNode != null;
+             currentNode = currentNode.getNext(), copiedNode = copiedNode.getNext()) {
+            copiedNode.setNext(new ListNode<>(currentNode.getData()));
         }
 
-        return copiedList.reverse();
+        return copiedList;
     }
 
     public SinglyLinkedList<T> reverse() {
@@ -183,16 +164,16 @@ public class SinglyLinkedList<T> {
         return stringBuilder.toString();
     }
 
-    public void validateSize(SinglyLinkedList<T> list, int index) {
-        if (index < 0 || index >= list.getSize()) {
+    private void validateIndex(int index) {
+        if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException(
-                    String.format("Необходимо ввести значение индекса в диапазоне от 0 до %d, передано %d", list.getSize() - 1, index));
+                    String.format("Необходимо ввести значение индекса в диапазоне от 0 до %d, передано %d", size - 1, index));
         }
     }
 
-    public void isEmpty(SinglyLinkedList<T> list) {
-        if (list.getSize() == 0) {
-            throw new IllegalArgumentException("Список пуст");
+    private void checkEmpty() {
+        if (size == 0) {
+            throw new NoSuchElementException("Список пуст");
         }
     }
 }
