@@ -49,22 +49,20 @@ public class Main {
                 .sorted(Comparator.comparingInt(Person::getAge).reversed())
                 .forEach(System.out::println);
 
-        try {
-            Scanner scanner = new Scanner(System.in);
 
-            System.out.println("Укажите количество чисел для вычисления квадратных корней: ");
-            int numberCalculations = scanner.nextInt();
+        Scanner scanner = new Scanner(System.in);
 
-            if (numberCalculations < 0) {}
+        System.out.println("Укажите количество чисел для вычисления квадратных корней: ");
+        int numberCalculations = scanner.nextInt();
 
-            DoubleStream numberSquareRoot = IntStream
-                    .iterate(10, x -> x + 1)
-                    .mapToDouble(Math::sqrt)
-                    .limit(numberCalculations);
-            numberSquareRoot
-                    .forEach(System.out::println);
-        } catch (Exception e) {
-            System.out.println("Ошибка вычисления квадратных корней");
+        if (numberCalculations < 0) {
+            throw new IllegalArgumentException("Ошибка вычисления квадратных корней, количество вычислений должно быть положительным числом");
         }
+
+        DoubleStream numberSquareRoots = DoubleStream
+                .iterate(10, Math::sqrt)
+                .limit(numberCalculations);
+        numberSquareRoots
+                .forEach(System.out::println);
     }
 }
